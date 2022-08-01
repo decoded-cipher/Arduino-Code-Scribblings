@@ -57,9 +57,14 @@ void detectOverFeeding() {
   if (feedCount >= 2) {
     str = String("Overfeeding Prevented! Paused for the next 1 minute...");
     Serial.println(str);
-    delay(30000);
+    delay(60000);
   } else {
-    feedFood();
+    feedFood();             // For food servo
+    digitalWrite(7, HIGH);  // For water pump
+    delay(3000);
+    digitalWrite(7, LOW);
+    delay(1000);
+    
     feedStatus = 1;
     feedCount++;
     str = String("Doggy was fed just now! #0" )+String(feedCount);
