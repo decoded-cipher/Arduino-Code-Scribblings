@@ -1,6 +1,6 @@
 
-#define BLYNK_TEMPLATE_ID "----------"
-#define BLYNK_DEVICE_NAME "----------"
+#define BLYNK_TEMPLATE_ID "TMPLOQ5BdwA0"
+#define BLYNK_DEVICE_NAME "Smart Inovus"
 
 #define BLYNK_FIRMWARE_VERSION        "0.1.0"
 #define BLYNK_PRINT Serial

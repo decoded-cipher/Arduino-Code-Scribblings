@@ -43,12 +43,12 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "***********************************";
+char auth[] = "NrD_2zzrVDP--vwO48MHuk3HO_jrk5dm";
 
 // Your WiFi credentials.0
 // Set password to "" for open networks.
-char ssid[] = "***************";
-char pass[] = "**************";
+char ssid[] = "realme 5 Pro";
+char pass[] = "12344321";
 
 void setup()
 {
