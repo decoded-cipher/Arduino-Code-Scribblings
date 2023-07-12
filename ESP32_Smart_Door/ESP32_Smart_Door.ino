@@ -3,6 +3,7 @@
 
 const char* ssid = "Cipher Den";
 const char* password = "Ak@152epv";
+const char* webhook_url = "https://discord.com/api/webhooks/1128190625200738424/RhR6nM5pXIYgZcN3IVYuAqKwV9N7DUDlCqrad3S-SSmgG7RVqB-iyS-A3AyHo517eNtR";
 
 
 
@@ -36,6 +37,26 @@ String sendGetRequest(const char* path) {
 
 
 
+
+void sendDiscordWebhook() {
+  HTTPClient http;
+  http.begin(webhook_url);
+  http.addHeader("Content-Type", "application/json");
+  
+  String json = "{\"content\":null,\"embeds\":[{\"title\":\":warning:  Alert! Inovus Smart Door  :warning:\",\"description\":\"Hey, did you know!\\nSomeone just opened our **RFID Secured Door** !\\n\\n> Door Status : **Not Available**\\n> Tag ID : **Not Available**\\n> Tag Owner : **Not Available**\\n.\",\"color\":10381369,\"footer\":{\"text\":\"Note : Please ignore this activity if the act is legit.\"}}],\"attachments\":[]}";
+  
+  int http_code = http.POST(json);
+  if (http_code == 204) {
+    Serial.println("Discord Webhook Sent...");
+  } else {
+    Serial.println("Error sending webhook...");
+  }
+}
+
+
+
+
+
 String processRequest(String tagId) {
   String path = "https://firestore.googleapis.com/v1/projects/inovus-smart-door/databases/(default)/documents/tags/" + tagId;
   Serial.println(path);
@@ -64,5 +85,9 @@ void loop() {
     tagId.trim();
     Serial.println("User input: " + tagId);
     String response = processRequest(tagId);
+
+    if (response) {
+      sendDiscordWebhook();
+    }
   }
 }
