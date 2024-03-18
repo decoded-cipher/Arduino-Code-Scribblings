@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP Web Server</title>
+</head>
+
+<!-- CSS -->
+<style>
+    .main-head{
+        color: red;
+    }
+    .head-one{
+        padding-top: 20px;
+    }
+    .head-two{
+        padding-top: 40px;
+    }
+    button{
+        margin-left: 40px;
+        margin-right: 40px;
+        padding: 10px;
+    }
+</style>
+
+<!-- JS -->
+<script>
+    var connection = new WebSocket('ws://'+location.hostname+':81/'); //Establish websocket connection at port 81
+
+    //LED ONE
+    function button_one_on()
+    {
+        console.log("LED one is ON");
+        connection.send("LED one is ON"); //connection.send is used to sent data to the server
+    }
+
+    function button_one_off()
+    {
+        console.log("LED one is OFF");
+        connection.send("LED one is OFF");
+    }
+    
+    //LED TWO
+    function button_two_on()
+    {
+        console.log("LED two is ON");
+        connection.send("LED two is ON"); 
+    }
+
+    function button_two_off()
+    {
+        console.log("LED two is OFF");
+        connection.send("LED two is OFF");
+    }
+</script>
+<body>
+    <center>
+        <h1 class="main-head">ESP WEB SERVER</h1>
+
+        <!-- LED ONE -->
+        <h3 class="head-one">LED ONE</h3>
+        <button onclick="button_one_on()">ON</button>
+        <button onclick="button_one_off()">OFF</button>
+
+        <!-- LED TWO -->
+        <h3 class="head-two">LED TWO</h3>
+        <button onclick="button_two_on()">ON</button>
+        <button onclick="button_two_off()">OFF</button>
+
+    </center>
+</body>
+</html>

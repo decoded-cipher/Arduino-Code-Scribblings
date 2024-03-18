@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP Web Server</title>
+</head>
+
+<!-- CSS -->
+<style>
+    .main-head{
+        color: red;
+    }
+    .head-one{
+        padding-top: 20px;
+    }
+    .head-two{
+        padding-top: 40px;
+    }
+    button{
+        margin-left: 40px;
+        margin-right: 40px;
+        padding: 10px;
+    }
+</style>
+
+<!-- JS -->
+<script>
+    var connection = new WebSocket('ws://'+location.hostname+':81/'); //Establish websocket connection at port 81
+
+    var button_one_status = 0;
+    var button_two_status = 0;
+
+    //LED ONE
+    function button_one_on()
+    {
+        button_one_status = 1;
+        console.log("LED one is ON");
+        document.getElementById("status").innerText = ": ON";
+        send_data();
+    }
+
+    function button_one_off()
+    {
+        button_one_status = 0;
+        console.log("LED one is OFF");
+        document.getElementById("status").innerText = ": OFF";
+        send_data();
+    }
+    
+    //LED TWO
+    function button_two_on()
+    {
+        button_two_status = 1
+        console.log("LED two is ON");
+        document.getElementById("status2").innerText = ": ON";
+        send_data();
+    }
+
+    function button_two_off()
+    {
+        button_two_status = 0;
+        console.log("LED two is OFF");
+        document.getElementById("status2").innerText = ": OFF";
+        send_data();
+    }
+
+    //Send the data formated  in JSON form
+    function send_data()
+    {
+        var json_data = '{"LED1" :'+button_one_status+',"LED2":'+button_two_status+'}';
+        connection.send(json_data);
+    }
+</script>
+<body>
+    <center>
+        <h1 class="main-head">ESP WEB SERVER</h1>
+
+        <!-- LED ONE -->
+        <h3 class="head-one">LED ONE <span id="status"></span></h3>
+        <button onclick="button_one_on()">ON</button>
+        <button onclick="button_one_off()">OFF</button>
+
+        <!-- LED TWO -->
+        <h3 class="head-two">LED TWO <span id="status2"></span></h3>
+        <button onclick="button_two_on()">ON</button>
+        <button onclick="button_two_off()">OFF</button>
+    </center>
+</body>
+</html>
